@@ -46,6 +46,10 @@ def make_dataset(root, evaluation, mode, folder_name=rgb_folder_name, subsample_
   vid_names_split = f[idx].split(', ')[:-1]
   vid_names = sorted(list(set(vid_names).intersection(set(vid_names_split))))
 
+  if len(vid_names) == 0:
+    raise BaseException('No files found. Make sure dataset is in: "{}"'.format(
+      root))
+  
   if mode == 0 and subsample_rate:
     # Subsample for training
     vid_names = vid_names[::subsample_rate]

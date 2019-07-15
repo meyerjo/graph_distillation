@@ -51,6 +51,10 @@ def make_dataset(root, has_skel, evaluation, split, subsample):
     vid_names = os.listdir(os.path.join(root, rgb_folder_name))
   vid_names = sorted(vid_names)
 
+  if len(vid_names) == 0:
+    raise BaseException('No files found. Make sure dataset is in: "{}"'.format(
+      root))
+
   if evaluation == 'cross-subject' and split != 'test':
     vid_names = [n for n in vid_names if int(n[9:12]) in train_cross_subject]
   elif evaluation == 'cross-subject' and split == 'test':
